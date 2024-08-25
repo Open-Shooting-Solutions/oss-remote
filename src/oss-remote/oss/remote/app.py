@@ -1,27 +1,39 @@
-from typing import Optional
-from oss.remote.models.base.remote import BaseRemote
-from oss.remote.models.base.remotes import Remote
+from oss.core.log import Log
+from oss.remote.models.remote import BaseRemote
+from oss.remote.models.remotes import Remote
 from oss.core.models.base.app import BaseApp
 
-# implement logging
+# Activate module wide logging
+logger = Log.get_logger_function()(__name__)
 
 
-class BuzzerApp(BaseApp):
+class RemoteApp(BaseApp):
     _remotes: list[BaseRemote] = []
 
-    def __init__(self, remotes: Optional[list[Remote]]) -> None:
-        # If there are remotes as a parameter, add them to the remotes list.
-        if remotes:
-            for remote in remotes:
-                self._remotes.append(remote.value)
-        else:
+    def __init__(self, remotes: list[Remote]) -> None:
+        # Check if there are remotes as parameter
+        if not remotes:
             # We have a major problem a remote app without a remote
-            pass
+            # implement logging
+            logger.critical("No remotes provided as parameter")
+            self.terminate()
+
+        # If there are remotes as a parameter, add them to the remotes list.
+        for remote in remotes:
+            self._remotes.append(remote.value())
+            print(self._remotes)
+
+    def __del__(self):
+        self.terminate()
 
     def run(self) -> None:
         # Create a connection to the message broker
-        pass
+        while True:
+            pass
 
     def terminate(self) -> None:
-        # Terminate old connections to the message broker
         pass
+
+
+app: BaseApp = RemoteApp(remotes=[Remote.KEYPAD])
+app.run()
