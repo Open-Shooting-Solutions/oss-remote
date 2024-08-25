@@ -1,14 +1,13 @@
 from enum import Enum
-from oss.remote.models.remote import BaseRemote
-from oss.remote.models.remote import TimerAction
+from oss.remote.models.remote import BaseRemote, TimerControl
 
 
 # Need to implement logging
 class ButtonpadAction(Enum):
-    GPIO1: TimerAction = TimerAction.TOGGLE_PHASE
-    GPIO2: TimerAction = TimerAction.RESET_PHASE
-    GPIO3: TimerAction = TimerAction.PREVIOUS_PHASE
-    GPIO4: TimerAction = TimerAction.NEXT_PHASE
+    GPIO1: TimerControl = TimerControl.TOGGLE_PHASE
+    GPIO2: TimerControl = TimerControl.RESET_PHASE
+    GPIO3: TimerControl = TimerControl.PREVIOUS_PHASE
+    GPIO4: TimerControl = TimerControl.NEXT_PHASE
 
 
 class ButtonpadRemote(BaseRemote):

@@ -4,7 +4,8 @@ from uuid import UUID, uuid4
 from oss.core.message import BrokerConnection
 
 
-class TimerAction(Enum):
+# Shouldnt this be a timer control instead of action?
+class TimerControl(Enum):
     TOGGLE_PHASE: str = "TOGGLE_STAGE"
     RESET_PHASE: str = "STOP_PHASE"
     NEXT_PHASE: str = "NEXT_PHASE"
@@ -12,6 +13,7 @@ class TimerAction(Enum):
     RESET_STAGE: str = "RESET_STAGE"
     NEXT_STAGE: str = "NEXT_STAGE"
     PREVIOUS_STAGE: str = "PREVIOUS_STAGE"
+    SET_DELAY: str = "SET_DELAY"
 
 
 class BaseRemote(ABC):
@@ -31,7 +33,7 @@ class BaseRemote(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def _handle_hook_event(self, action: TimerAction) -> None:
+    def _handle_hook_event(self, action: TimerControl) -> None:
         raise NotImplementedError
 
     @abstractmethod
