@@ -19,7 +19,6 @@ class KeypadAction(Enum):
 
 class KeypadRemote(BaseRemote):
     _configured_hooks: list[Tuple[str, TimerAction, Callable[[], None]]] = []
-    _broker_connection: BrokerConnection
 
     def __init__(self) -> None:
         self._broker_connection = BrokerConnection(host="localhost", port=5672)
@@ -33,7 +32,7 @@ class KeypadRemote(BaseRemote):
         broker_message: BrokerMessage = BrokerMessage(
             broker_connection=self._broker_connection,
             exchange="remote",
-            routing_key="remote.action",
+            routing_key="remote.keypad.action",
             producer=self._identifier,
             body={"action": action},
         )

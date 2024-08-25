@@ -27,8 +27,8 @@ class RemoteApp(BaseApp):
         self.terminate()
 
     def run(self) -> None:
-        # Create a connection to the message broker
         while True:
+            # dont have much to do right now :)
             pass
 
     def terminate(self) -> None:

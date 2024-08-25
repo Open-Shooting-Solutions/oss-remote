@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 from uuid import UUID, uuid4
+from oss.core.message import BrokerConnection
 
 
 class TimerAction(Enum):
@@ -13,14 +14,13 @@ class TimerAction(Enum):
     PREVIOUS_STAGE: str = "PREVIOUS_STAGE"
 
 
-class BaseConfigurationActions(Enum):
-    SWITCH_DISCIPLINE: str = "SWITCH_DISCIPLINE"
-
-
 class BaseRemote(ABC):
     # Each remote needs an uuid so we can keep track of which remote triggered an action.
     # This is mostly for debugging.
     _identifier: UUID = uuid4()
+
+    # Each remote needs an connection to the message broker to send commands
+    _broker_connection: BrokerConnection
 
     @abstractmethod
     def __init__(self) -> None:
