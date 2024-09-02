@@ -1,5 +1,6 @@
 from enum import Enum
-from oss.remote.models.remote import BaseRemote, TimerControl
+from oss.core.models.base.remote import BaseRemote
+from oss.core.models.base.timer import TimerControl
 
 
 # Need to implement logging

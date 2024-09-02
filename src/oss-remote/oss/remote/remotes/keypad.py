@@ -3,7 +3,8 @@ from typing import Tuple, Callable
 import keyboard
 from oss.core.log import Log
 from oss.core.message import BrokerMessage, BrokerConnection, BrokerExchangeType
-from oss.remote.models.remote import BaseRemote, TimerControl
+from oss.core.models.base.remote import BaseRemote
+from oss.core.models.base.timer import TimerControl
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)
@@ -29,23 +30,25 @@ class KeypadRemote(BaseRemote):
 
     def _handle_hook_event(self, action: TimerControl) -> None:
         broker_message: BrokerMessage = BrokerMessage(
-            broker_connection=self._broker_connection,
-            exchange="remote",
-            routing_key="remote.keypad.action",
             producer=self._identifier,
             body={"action": action.value},
         )
-        broker_message.send()
+        broker_message.send(
+            broker_connection=self._broker_connection,
+            exchange="remote",
+            routing_key="remote.keypad.action",
+            broker_message=broker_message,
+        )
 
     def _register_hooks(self) -> None:
-        for action in KeypadAction:
+        for keypad_action in KeypadAction:
             hook_remove_function: Callable[[], None] = keyboard.add_hotkey(
-                hotkey=action.name,  # Name is a reference to the KEY of the Enum KV
+                hotkey=keypad_action.name,  # Name is a reference to the KEY of the Enum KV
                 callback=self._handle_hook_event,  # The function to be called on keypress
-                args=[action.value],  # The arguments passed to the function
+                args=[keypad_action.value],  # The arguments passed to the function
                 timeout=0.1,
             )
-            self._configured_hooks.append((action.name, action.value, hook_remove_function))
+            self._configured_hooks.append((keypad_action.name, keypad_action.value, hook_remove_function))
 
     def _remove_hooks(self) -> None:
         keyboard.unhook_all_hotkeys()

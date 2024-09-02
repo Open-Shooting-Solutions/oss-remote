@@ -1,6 +1,6 @@
 from oss.core.log import Log
-from oss.remote.models.remote import BaseRemote
-from oss.remote.models.remotes import Remote
+from oss.core.models.base.remote import BaseRemote
+from oss.core.models.remotes import Remote
 from oss.core.models.base.app import BaseApp
 
 # Activate module wide logging
@@ -21,14 +21,13 @@ class RemoteApp(BaseApp):
         # If there are remotes as a parameter, add them to the remotes list.
         for remote in remotes:
             self._remotes.append(remote.value())
-            print(self._remotes)
 
     def __del__(self):
         self.terminate()
 
     def run(self) -> None:
         while True:
-            # dont have much to do right now :)
+            # don't have much to do right now :)
             pass
 
     def terminate(self) -> None:
