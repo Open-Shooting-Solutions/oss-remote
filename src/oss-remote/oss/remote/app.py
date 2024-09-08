@@ -1,6 +1,6 @@
 from oss.core.log import Log
 from oss.core.models.base.remote import BaseRemote
-from oss.core.models.remotes import Remote
+from oss.remote.remotes.type import RemoteType
 from oss.core.models.base.app import BaseApp
 
 # Activate module wide logging
@@ -10,7 +10,7 @@ logger = Log.get_logger_function()(__name__)
 class RemoteApp(BaseApp):
     _remotes: list[BaseRemote] = []
 
-    def __init__(self, remotes: list[Remote]) -> None:
+    def __init__(self, remotes: list[RemoteType]) -> None:
         # Check if there are remotes as parameter
         if not remotes:
             # We have a major problem a remote app without a remote
@@ -34,5 +34,5 @@ class RemoteApp(BaseApp):
         pass
 
 
-app: BaseApp = RemoteApp(remotes=[Remote.KEYPAD])
+app: BaseApp = RemoteApp(remotes=[RemoteType.KEYPAD])
 app.run()

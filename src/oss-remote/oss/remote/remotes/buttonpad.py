@@ -1,5 +1,6 @@
 from enum import Enum
-from oss.core.models.base.remote import BaseRemote
+from dataclasses import dataclass
+from oss.core.models.base.remote import BaseRemote, BaseHook
 from oss.core.models.base.timer import TimerControl
 
 
@@ -11,12 +12,11 @@ class ButtonpadAction(Enum):
     GPIO4: TimerControl = TimerControl.NEXT_PHASE
 
 
+@dataclass
+class ButtonpadHook(BaseHook):
+    pin: str
+    action: TimerControl
+
+
 class ButtonpadRemote(BaseRemote):
-    def __init__(self) -> None:
-        pass
-
-    def _register_hooks(self) -> None:
-        pass
-
-    def _remove_hooks(self) -> None:
-        pass
+    pass
