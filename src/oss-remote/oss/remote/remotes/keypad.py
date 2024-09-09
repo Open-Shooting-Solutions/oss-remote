@@ -1,22 +1,29 @@
 """A Keypad BaseRemote implementation"""
 
 from enum import Enum
-from typing import Callable, Iterable
+from typing import Callable
 import keyboard
 from oss.core.log import Log
 from oss.core.models.base.remote import BaseRemote, BaseHook
 from oss.core.models.base.timer import TimerControl
+from oss.core.models.base.display import DisplayControl
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)
 
 
 class KeypadAction(Enum):
-    """A mapping between keystrokes and action to send via the message broker"""
+    """A mapping between keystrokes and timer actions to send via the message broker"""
 
     Q: TimerControl = TimerControl.TOGGLE_PHASE
     W: TimerControl = TimerControl.RESET_PHASE
     E: TimerControl = TimerControl.RESET_STAGE
+
+
+class DisplayAction(Enum):
+    Q: DisplayControl = DisplayControl.OK
+    W: DisplayControl = DisplayControl.CANCEL
+    E: DisplayControl = DisplayControl.NEXT
 
 
 class KeypadHook(BaseHook):
@@ -55,5 +62,5 @@ class KeypadRemote(BaseRemote):
     A keypad is a (small) keyboard that sends keystrokes like: Q,W,E,R,T,Y.
     """
 
-    _hook_type: type[KeypadHook] = KeypadHook  # The type of hook
-    _action_schema: Iterable[KeypadAction] = KeypadAction  # The actions that are mapped for this remote
+    _hook_type: type[KeypadHook] = KeypadHook  # The type of hook that is needed for this remote
+    _action_schema: type[KeypadAction | DisplayAction] = KeypadAction  # The actions that are mapped for this remote
