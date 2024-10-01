@@ -5,7 +5,6 @@ from typing import Callable, Iterable
 from oss.core.log import Log
 from oss.core.models.base.remote import BaseRemote, BaseHook
 from oss.core.models.base.timer import TimerControl
-from oss.core.models.base.display import DisplayControl
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)
@@ -18,13 +17,6 @@ class ButtonpadAction(Enum):
     GPIO2: TimerControl = TimerControl.RESET_PHASE
     GPIO3: TimerControl = TimerControl.NEXT_STAGE
     GPIO4: TimerControl = TimerControl.PREVIOUS_STAGE
-
-
-class DisplayAction(Enum):
-    GPIO1: DisplayControl = DisplayControl.OK
-    GPIO2: DisplayControl = DisplayControl.CANCEL
-    GPIO3: DisplayControl = DisplayControl.PREVIOUS
-    GPIO4: DisplayControl = DisplayControl.NEXT
 
 
 class ButtonpadHook(BaseHook):
@@ -57,6 +49,4 @@ class ButtonpadRemote(BaseRemote):
     """
 
     _hook_type: type[ButtonpadHook] = ButtonpadHook  # The type of hook that is needed for this remote
-    _action_schema: type[ButtonpadAction | DisplayAction] = (
-        ButtonpadAction  # The actions that are mapped for this remote
-    )
+    _action_schema: type[ButtonpadAction] = ButtonpadAction  # The actions that are mapped for this remote

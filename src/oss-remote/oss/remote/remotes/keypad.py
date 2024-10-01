@@ -6,24 +6,18 @@ import keyboard
 from oss.core.log import Log
 from oss.core.models.base.remote import BaseRemote, BaseHook
 from oss.core.models.base.timer import TimerControl
-from oss.core.models.base.display import DisplayControl
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)
 
 
+######################### Could written to stage based timer? Because that is a timer type and knows the functions!!!!
 class KeypadAction(Enum):
     """A mapping between keystrokes and timer actions to send via the message broker"""
 
     Q: TimerControl = TimerControl.TOGGLE_PHASE
     W: TimerControl = TimerControl.RESET_PHASE
     E: TimerControl = TimerControl.RESET_STAGE
-
-
-class DisplayAction(Enum):
-    Q: DisplayControl = DisplayControl.OK
-    W: DisplayControl = DisplayControl.CANCEL
-    E: DisplayControl = DisplayControl.NEXT
 
 
 class KeypadHook(BaseHook):
@@ -35,10 +29,14 @@ class KeypadHook(BaseHook):
     _unhook_callable: Callable[[], None]
 
     def register(self) -> None:
-        """Registers a hook for a keypress
+        """
+        Registers a keyboard hotkey and associates it with a callback function. When the specified key (self.name)
+        is pressed, the callback function (self.callback) is called with the provided arguments (self.action).
+        This method uses the 'keyboard' library to add the hotkey and sets a removal function to clean up the hook
+        when needed.
 
-        Returns:
-            None
+        Sets:
+          self._unhook_callable: A function that removes the hotkey hook when called.
         """
         # The add_hotkey function configures a keyboard hook, but returns a remove function as a result.
         hook_remove_function: Callable[[], None] = keyboard.add_hotkey(
@@ -52,6 +50,12 @@ class KeypadHook(BaseHook):
         self._unhook_callable = hook_remove_function
 
     def remove(self):
+        """
+        Removes the hook by calling the unhook callable method.
+
+        Unhooks any function or method that was previously hooked by invoking
+        the internal `_unhook_callable` method of the instance.
+        """
         self._unhook_callable()
 
 
@@ -62,5 +66,5 @@ class KeypadRemote(BaseRemote):
     A keypad is a (small) keyboard that sends keystrokes like: Q,W,E,R,T,Y.
     """
 
-    _hook_type: type[KeypadHook] = KeypadHook  # The type of hook that is needed for this remote
-    _action_schema: type[KeypadAction | DisplayAction] = KeypadAction  # The actions that are mapped for this remote
+    _hook_type: type[KeypadHook] = KeypadHook  # Hook type for this remote
+    _action_schema: type[KeypadAction] = KeypadAction  # Mapped actions for this remote
