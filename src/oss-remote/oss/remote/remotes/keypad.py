@@ -17,7 +17,7 @@ class KeypadAction(Enum):
 
     Q: TimerControl = TimerControl.TOGGLE_PHASE
     W: TimerControl = TimerControl.RESET_PHASE
-    E: TimerControl = TimerControl.RESET_STAGE
+    E: TimerControl = TimerControl.SET_TOGGLE_DELAY
 
 
 class KeypadHook(BaseHook):
@@ -30,7 +30,7 @@ class KeypadHook(BaseHook):
 
     def register(self) -> None:
         """
-        Registers a keyboard hotkey and associates it with a callback function. When the specified key (self.name)
+        Registers a keyboard hotkey and associate it with a callback function. When the specified key (self.name)
         is pressed, the callback function (self.callback) is called with the provided arguments (self.action).
         This method uses the 'keyboard' library to add the hotkey and sets a removal function to clean up the hook
         when needed.

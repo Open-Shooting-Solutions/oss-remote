@@ -8,19 +8,18 @@ logger = Log.get_logger_function()(__name__)
 
 
 class RemoteApp(BaseApp):
-    _remotes: list[BaseRemote] = []
+    _remote: BaseRemote
 
-    def __init__(self, remotes: list[RemoteType]) -> None:
-        # Check if there are remotes as parameter
-        if not remotes:
+    def __init__(self, remote: RemoteType) -> None:
+        # If there are timers as a parameter, add them to the timer list.
+        if remote:
+            # Initialize the passed in remote and make it the remote of this remote app
+            self._remote = remote.value()
+            logger.info(self._identifier)
+        else:
             # We have a major problem a remote app without a remote
-            # implement logging
-            logger.critical("No remotes provided as parameter")
+            logger.critical("Cannot start app. No remote or invalid remote specified")
             self.terminate()
-
-        # If there are remotes as a parameter, add them to the remotes list.
-        for remote in remotes:
-            self._remotes.append(remote.value())
 
     def __del__(self):
         self.terminate()
@@ -31,8 +30,9 @@ class RemoteApp(BaseApp):
             pass
 
     def terminate(self) -> None:
+        # Terminate old connections to the message broker
         pass
 
 
-app: BaseApp = RemoteApp(remotes=[RemoteType.KEYPAD])
+app: BaseApp = RemoteApp(remote=RemoteType.KEYPAD)
 app.run()
