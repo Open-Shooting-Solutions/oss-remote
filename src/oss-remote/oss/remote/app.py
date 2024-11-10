@@ -32,7 +32,3 @@ class RemoteApp(BaseApp):
     def terminate(self) -> None:
         # Terminate old connections to the message broker
         pass
-
-
-app: BaseApp = RemoteApp(remote=RemoteType.KEYPAD)
-app.run()
