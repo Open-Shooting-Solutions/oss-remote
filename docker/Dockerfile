@@ -51,10 +51,10 @@ COPY --from=builder_image ${APP_DIR} ${APP_DIR}
 # Change the owner of the folder to the created user and group
 # Change the permissions to read and execute only for the user and the group
 ENV RUNTIME_USER="oss-user"
-RUN groupadd -r ${RUNTIME_USER} &&  \
-    useradd -r -g ${RUNTIME_USER} ${RUNTIME_USER} && \
-    chown -R ${RUNTIME_USER}:${RUNTIME_USER} $APPDIR && \
-    chmod 550 -R $APPDIR
+RUN groupadd -r "${RUNTIME_USER}" &&  \
+    useradd -r -g "${RUNTIME_USER}" "${RUNTIME_USER}" && \
+    chown -R "${RUNTIME_USER}:${RUNTIME_USER}" "${APPDIR}" && \
+    chmod 550 -R "${APPDIR}"
 
 # Switch user context to the newly created user
 USER ${RUNTIME_USER}
