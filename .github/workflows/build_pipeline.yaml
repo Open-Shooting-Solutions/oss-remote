@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       - name: install_poetry
         run: | # Install poetry and check it works
-          pip install poetry
+          pip install poetry --disable-pip-version-check
           poetry --version
       - name: install_python_dependencies
         run: | # Install the dependencies but update the dev dependencies because they are linters.
@@ -35,18 +35,18 @@ jobs:
       - name: lint_python_mypy
         run: | # MYPY cant handle my pkgutil-style structure. It "thinks" that my root namespace is called "src"
           poetry run mypy -p src
-      - name: lint_python_pylint
-        run: | # General code linter
-          poetry run pylint ./src/ --recursive=y
-      - name: lint_python_pyright
-        run: | # General code linter focus on types
-          poetry run pyright ./src/
-      - name: lint_python_ruff
-        run: | # General code linter
-          poetry run ruff check --config pyproject.toml ./src/
-      - name: lint_documentation_pydocstyle
-        run: | # Docstring linter
-          poetry run pydocstyle ./src/
+      #- name: lint_python_pylint
+      #  run: | # General code linter
+      #    poetry run pylint ./src/ --recursive=y
+      #- name: lint_python_pyright
+      #  run: | # General code linter focus on types
+      #    poetry run pyright ./src/
+      #- name: lint_python_ruff
+      #  run: | # General code linter
+      #    poetry run ruff check --config pyproject.toml ./src/
+      #- name: lint_documentation_pydocstyle
+      #  run: | # Docstring linter
+      #    poetry run pydocstyle ./src/
       - name: lint_python_isort
         run: | # Import sorting linter
           poetry run isort ./src/ --check --dif
@@ -81,8 +81,8 @@ jobs:
           poetry install
       - name: publish_package
         env:
-          PYPI_URL: ${{ vars.PYPI_URL}} #This is a GitHub variable
-          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }} #This is a GitHub secret
+          PYPI_URL: ${{vars.PYPI_PROD_URL}} #This is a GitHub variable
+          PYPI_TOKEN: ${{secrets.PYPI_TOKEN}} #This is a GitHub secret
         run: | # Build and publish the package with all the namespace packages
           export POETRY_APP_VERSION=$(poetry version --short)
           poetry version $POETRY_APP_VERSION

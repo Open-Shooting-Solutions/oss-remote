@@ -1,7 +1,7 @@
 from enum import Enum
 
-from oss.remote.remotes.buttonpad import ButtonpadRemote, ButtonpadHook
-from oss.remote.remotes.keypad import KeypadRemote, KeypadHook
+from oss.remote.remotes.buttonpad import ButtonpadHook, ButtonpadRemote
+from oss.remote.remotes.keypad import KeypadHook, KeypadRemote
 
 
 class RemoteType(Enum):

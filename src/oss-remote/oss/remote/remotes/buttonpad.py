@@ -2,8 +2,9 @@
 
 from enum import Enum
 from typing import Callable, Iterable
+
 from oss.core.log import Log
-from oss.core.models.base.remote import BaseRemote, BaseHook
+from oss.core.models.base.remote import BaseHook, BaseRemote
 from oss.core.models.base.timer import TimerControl
 
 # Activate module wide logging
