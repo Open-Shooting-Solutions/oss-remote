@@ -56,4 +56,4 @@ RUN groupadd -r ${RUNTIME_USER} &&  \
 USER ${RUNTIME_USER}
 
 # Launch the application
-ENTRYPOINT[]
+ENTRYPOINT["oss-remote"]
