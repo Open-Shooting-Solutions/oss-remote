@@ -31,7 +31,7 @@ bandit = "^1.7.8"
 flake8 = "^7.0.0"
 
 [tool.poetry.group.localdev.dependencies]
-oss-core = {path = "../oss-core", develop=true}
+openshootingsolutions-core = {path = "../oss-core", develop=true}
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
