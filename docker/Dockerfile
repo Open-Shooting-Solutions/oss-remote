@@ -53,8 +53,8 @@ COPY --from=builder_image ${APP_DIR} ${APP_DIR}
 ENV RUNTIME_USER="oss-user"
 RUN groupadd -r "${RUNTIME_USER}" &&  \
     useradd -r -g "${RUNTIME_USER}" "${RUNTIME_USER}" && \
-    chown -R "${RUNTIME_USER}:${RUNTIME_USER}" "${APPDIR}" && \
-    chmod 550 -R "${APPDIR}"
+    chown -R "${RUNTIME_USER}:${RUNTIME_USER}" "${APP_DIR}" && \
+    chmod 550 -R "${APP_DIR}"
 
 # Switch user context to the newly created user
 USER ${RUNTIME_USER}
