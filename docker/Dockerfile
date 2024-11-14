@@ -14,11 +14,13 @@ ENV PYTHONUNBUFFERED=1 \
 
 
 # Set VIRTUAL_ENV which is used by third party tools to detect the use of a virtual environment
-ENV VIRTUAL_ENV="${APP_DIR}/.venv" \
-    PATH="${VIRTUAL_ENV}/bin:$PATH"
+ENV VIRTUAL_ENV="${APP_DIR}/.venv"
 
 # Create the VENV and add it to the path variable
 RUN python3 -m venv $VIRTUAL_ENV
+
+# Now add the path to the PATH variable
+ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
 
 # RUN pip to install the package
 RUN pip install oss-remote
@@ -36,8 +38,10 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
 
 # Set VIRTUAL_ENV which is used by third party tools to detect the use of a virtual environment
-ENV VIRTUAL_ENV="${APP_DIR}/.venv" \
-    PATH="${VIRTUAL_ENV}/bin:$PATH"
+ENV VIRTUAL_ENV="${APP_DIR}/.venv"
+
+# Now add the path to the PATH variable
+ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
 
 # COPY the VENV from the builder stage
 COPY --from=builder_image ${APP_DIR} ${APP_DIR}

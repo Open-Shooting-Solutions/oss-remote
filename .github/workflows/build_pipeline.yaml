@@ -1,4 +1,4 @@
-name: "Package ATS"
+name: "Package oss-remote"
 on:
   push:
     branches:
