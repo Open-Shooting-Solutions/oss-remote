@@ -1,6 +1,13 @@
+#Set global variables that can be inherited inside the stages
+ARG APP_NAME="oss-remote"
+ARG APP_DIR="/app/oss/${APP_NAME}"
+
 FROM python:3.12-slim as builder_image
+# Inherit the global variables APP_NAME and APP_DIR
+ARG APP_NAME
+ARG APP_DIR
+
 #Create an working directory and switch to it
-ARG APP_DIR="/app"
 WORKDIR ${APP_DIR}
 
 # Do not buffer python logs, output them directly
@@ -23,11 +30,12 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
 
 # RUN pip to install the package
-RUN pip install oss-remote
+RUN pip install ${APP_NAME}
 
 FROM python:3.12-slim as runtime_image
-# Input variables
-ARG APP_DIR="/app"
+# Inherit the global variables APP_NAME and APP_DIR
+ARG APP_NAME
+ARG APP_DIR
 
 # Create an working directory and switch to it
 WORKDIR ${APP_DIR}
