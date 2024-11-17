@@ -1,5 +1,5 @@
 #Set global variables that can be inherited inside the stages
-ARG APP_NAME="oss-remote"
+ARG APP_NAME="openshootingsolutions-remote"
 ARG APP_DIR="/app/oss/${APP_NAME}"
 
 FROM python:3.12-slim as builder_image
