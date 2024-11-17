@@ -92,7 +92,7 @@ jobs:
 
   build_container_image:
     name: build_container_image
-    needs: [build_python_package]
+    #needs: [build_python_package]
     runs-on: ubuntu-latest
     steps:
       - name: setup_qemu
