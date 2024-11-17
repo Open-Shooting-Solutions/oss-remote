@@ -22,7 +22,7 @@ jobs:
         run: | # Install the dependencies but update the dev dependencies because they are linters.
           poetry config virtualenvs.in-project true
           poetry update --only=dev
-          poetry install --without localdev
+          poetry install
       - name: lint_python_bandit
         run: | # Linter for security issues like secrets and pseudo random numbers in the code.
           poetry run bandit -c pyproject.toml -r .
