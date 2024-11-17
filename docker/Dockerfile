@@ -2,7 +2,7 @@
 ARG APP_NAME="openshootingsolutions-remote"
 ARG APP_DIR="/app/oss/${APP_NAME}"
 
-FROM python:3.12-slim as builder_image
+FROM python:3.12-slim AS builder_image
 # Inherit the global variables APP_NAME and APP_DIR
 ARG APP_NAME
 ARG APP_DIR
@@ -32,7 +32,7 @@ ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
 # RUN pip to install the package
 RUN pip install ${APP_NAME}
 
-FROM python:3.12-slim as runtime_image
+FROM python:3.12-slim AS runtime_image
 # Inherit the global variables APP_NAME and APP_DIR
 ARG APP_NAME
 ARG APP_DIR
