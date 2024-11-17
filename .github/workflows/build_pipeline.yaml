@@ -62,33 +62,33 @@ jobs:
         with: # Lint the docker file for style and security issues
           dockerfile: ./docker/Dockerfile
 
-  build_python_package:
-    name: build_python_package
-    runs-on: ubuntu-latest
-    container:
-      image: python:3.12-slim-bookworm
-    needs: [lint_python_code, lint_container_build_file]
-    steps:
-      - name: checkout_repo
-        uses: actions/checkout@v4
-      - name: install_and_configure_poetry
-        run: | # Install poetry and check it works
-          pip install poetry
-          poetry --version
-      - name: install_and_configure_poetry
-        run: | # Configure Poetry and install the package dependencies
-          poetry config virtualenvs.in-project true
-          poetry install
-      - name: publish_package
-        env:
-          PYPI_URL: ${{vars.PYPI_PROD_URL}} #This is a GitHub variable
-          PYPI_TOKEN: ${{secrets.PYPI_TOKEN}} #This is a GitHub secret
-        run: | # Build and publish the package with all the namespace packages
-          export POETRY_APP_VERSION=$(poetry version --short)
-          poetry version $POETRY_APP_VERSION
-          poetry config repositories.pypi $PYPI_URL
-          poetry config pypi-token.pypi $PYPI_TOKEN
-          poetry publish --build
+  #build_python_package:
+  #  name: build_python_package
+  #  runs-on: ubuntu-latest
+  #  container:
+  #    image: python:3.12-slim-bookworm
+  #  needs: [lint_python_code, lint_container_build_file]
+  #  steps:
+  #    - name: checkout_repo
+  #      uses: actions/checkout@v4
+  #    - name: install_and_configure_poetry
+  #      run: | # Install poetry and check it works
+  #        pip install poetry
+  #        poetry --version
+  #    - name: install_and_configure_poetry
+  #      run: | # Configure Poetry and install the package dependencies
+  #        poetry config virtualenvs.in-project true
+  #        poetry install
+  #    - name: publish_package
+  #      env:
+  #        PYPI_URL: ${{vars.PYPI_PROD_URL}} #This is a GitHub variable
+  #        PYPI_TOKEN: ${{secrets.PYPI_TOKEN}} #This is a GitHub secret
+  #      run: | # Build and publish the package with all the namespace packages
+  #        export POETRY_APP_VERSION=$(poetry version --short)
+  #        poetry version $POETRY_APP_VERSION
+  #        poetry config repositories.pypi $PYPI_URL
+  #        poetry config pypi-token.pypi $PYPI_TOKEN
+  #        poetry publish --build
 
   build_container_image:
     name: build_container_image
@@ -110,6 +110,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: oss-remote:latest
+          file: {context}/docker/Dockerfile
 
   build_container_image_sbom:
     name: generate_container_image_sbom
