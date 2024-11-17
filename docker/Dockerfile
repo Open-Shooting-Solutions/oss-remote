@@ -43,7 +43,7 @@ WORKDIR ${APP_DIR}
 # Do not buffer python logs, output them directly
 # Do not create .pyc files
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
 # Set VIRTUAL_ENV which is used by third party tools to detect the use of a virtual environment
 ENV VIRTUAL_ENV="${APP_DIR}/.venv"
