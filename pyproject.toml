@@ -30,7 +30,7 @@ pydocstyle = "^6.3.0"
 bandit = "^1.7.8"
 flake8 = "^7.0.0"
 
-[tool.poetry.group.localdev.dependencies]
+#[tool.poetry.group.localdev.dependencies]
 #openshootingsolutions-core = {path = "../oss-core", develop=true}
 
 [build-system]

@@ -12,7 +12,6 @@ from oss.core.models.base.timer import TimerControl
 logger = Log.get_logger_function()(__name__)
 
 
-######################### Could written to stage based timer? Because that is a timer type and knows the functions!!!!
 class KeypadAction(Enum):
     """A mapping between keystrokes and timer actions to send via the message broker"""
 

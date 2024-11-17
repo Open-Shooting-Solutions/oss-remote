@@ -1,7 +1,7 @@
 """A Buttonpad BaseRemote implementation"""
 
 from enum import Enum
-from typing import Callable, Iterable
+from typing import Callable
 
 from oss.core.log import Log
 from oss.core.models.base.remote import BaseHook, BaseRemote

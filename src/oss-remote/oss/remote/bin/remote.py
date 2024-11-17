@@ -67,7 +67,7 @@ class LaunchArguments(BaseModel):
         try:
             if not RemoteType[remote_type.upper()]:
                 raise ValueError(f"Unsupported remote_type '{remote_type}'")
-        except:
+        except KeyError:
             raise ValueError(f"Unsupported remote_type '{remote_type}'")
         return remote_type
 
