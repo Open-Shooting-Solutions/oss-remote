@@ -78,7 +78,7 @@ jobs:
       - name: install_and_configure_poetry
         run: | # Configure Poetry and install the package dependencies
           poetry config virtualenvs.in-project true
-          poetry install --without localdev
+          poetry install
       - name: publish_package
         env:
           PYPI_URL: ${{vars.PYPI_PROD_URL}} #This is a GitHub variable
