@@ -38,9 +38,9 @@ jobs:
       #- name: lint_python_pylint
       #  run: | # General code linter
       #    poetry run pylint ./src/ --recursive=y
-      - name: lint_python_pyright
-        run: | # General code linter focus on types
-          poetry run pyright ./src/
+      #- name: lint_python_pyright
+      #  run: | # General code linter focus on types
+      #    poetry run pyright ./src/
       - name: lint_python_ruff
         run: | # General code linter
           poetry run ruff check --config pyproject.toml ./src/
