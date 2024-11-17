@@ -110,7 +110,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: oss-remote:latest
-          file: {context}/docker/Dockerfile
+          file: context/docker/Dockerfile
 
   build_container_image_sbom:
     name: generate_container_image_sbom
