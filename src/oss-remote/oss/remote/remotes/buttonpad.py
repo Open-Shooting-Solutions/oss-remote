@@ -4,8 +4,8 @@ from enum import Enum
 from typing import Callable
 
 from oss.core.log import Log
-from oss.core.models.base.remote import BaseHook, BaseRemote
 from oss.core.models.base.timer import TimerControl
+from oss.remote.base.remote import BaseHook, BaseRemote
 
 # Activate module wide logging
 logger = Log.get_logger_function()(__name__)

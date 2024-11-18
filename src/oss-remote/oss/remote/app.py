@@ -1,6 +1,6 @@
 from oss.core.log import Log
 from oss.core.models.base.app import BaseApp
-from oss.core.models.base.remote import BaseRemote
+from oss.remote.models.base.remote import BaseRemote
 from oss.remote.remotes.type import RemoteType
 
 # Activate module wide logging

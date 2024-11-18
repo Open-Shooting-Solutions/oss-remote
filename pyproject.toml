@@ -17,7 +17,7 @@ python = "^3.12"
 keyboard = "^0.13.5"
 pika = "^1.3.2"
 pydantic = "^2.9.2"
-openshootingsolutions-core = "^0.0.1"
+#openshootingsolutions-core = "^0.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
@@ -30,8 +30,8 @@ pydocstyle = "^6.3.0"
 bandit = "^1.7.8"
 flake8 = "^7.0.0"
 
-#[tool.poetry.group.localdev.dependencies]
-#openshootingsolutions-core = {path = "../oss-core", develop=true}
+[tool.poetry.group.localdev.dependencies]
+openshootingsolutions-core = {path = "../oss-core", develop=true}
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
